@@ -5,4 +5,11 @@
           android:title="@string/action_settings"
           android:orderInCategory="100"
           android:showAsAction="never"/>
+
+    <item android:id="@+id/action_search"
+          android:title="Search"
+          android:icon="@drawable/ic_search_white_48dp"
+          android:showAsAction="always"
+          android:actionViewClass="android.widget.SearchView"/>
+
 </menu>
