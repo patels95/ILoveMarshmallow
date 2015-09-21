@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -17,20 +19,30 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class MainActivity extends Activity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
     private String mUserQuery;
+    private Product[] mProducts;
+
+    @Bind(R.id.progressBar) ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        mProgressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -68,6 +80,8 @@ public class MainActivity extends Activity {
         String url = "https://zappos.amazon.com/mobileapi/v1/search?term=" + query;
 
         if (isNetworkAvailable()){
+            mProgressBar.setVisibility(View.VISIBLE);
+
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder().url(url).build();
 
@@ -75,28 +89,63 @@ public class MainActivity extends Activity {
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mProgressBar.setVisibility(View.INVISIBLE);
+                        }
+                    });
                     Log.e(TAG, "search request error");
                 }
 
                 @Override
                 public void onResponse(Response response) throws IOException {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mProgressBar.setVisibility(View.INVISIBLE);
+                        }
+                    });
+
                     try {
                         String jsonData = response.body().string();
-                        Log.v(TAG, jsonData);
                         if (response.isSuccessful()) {
-//                            mProducts = parseProductInfo(jsonData);
+                            mProducts = parseProductInfo(jsonData);
                         }
                         else {
                             Log.e(TAG, "search request error");
                         }
                     }
-                    // add JSONException below
-                    catch (IOException e) {
+                    catch (IOException | JSONException e) {
                         Log.e(TAG, "Exception caught: ", e);
                     }
                 }
             });
         }
+    }
+
+    private Product[] parseProductInfo(String jsonData) throws JSONException {
+        JSONObject result = new JSONObject(jsonData);
+        JSONArray data = result.getJSONArray(getString(R.string.results_json_array));
+
+        Product[] products = new Product[data.length()];
+
+        for(int i = 0; i < data.length(); i++){
+            JSONObject currentProduct = data.getJSONObject(i);
+            Product product = new Product();
+
+            product.setBrandName(currentProduct.getString(getString(R.string.result_brand_name)));
+            product.setPrice(currentProduct.getString(getString(R.string.result_price)));
+            product.setImageUrl(currentProduct.getString(getString(R.string.result_image_url)));
+            product.setAsin(currentProduct.getString(getString(R.string.result_asin)));
+            product.setProductUrl(currentProduct.getString(getString(R.string.result_product_url)));
+            product.setProductRating(currentProduct.getInt(getString(R.string.result_product_rating)));
+            product.setProductName(currentProduct.getString(getString(R.string.result_product_name)));
+
+            products[i] = product;
+        }
+
+        return products;
     }
 
     private boolean isNetworkAvailable() {
