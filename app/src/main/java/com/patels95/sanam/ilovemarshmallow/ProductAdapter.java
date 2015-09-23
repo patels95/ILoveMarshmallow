@@ -43,7 +43,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mProducts.length;
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -65,17 +65,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
 
         public void bindProduct(Product product){
-            try {
-                URL imageUrl = new URL(product.getImageUrl());
-                Bitmap bm = BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream());
-                mProductImage.setImageBitmap(bm);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
             mBrandName.setText(product.getBrandName());
             mProductName.setText(product.getProductName());
             mPrice.setText(product.getPrice());
+            mProductImage.setImageBitmap(product.getBitmap());
 
         }
 

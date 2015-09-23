@@ -1,9 +1,13 @@
 package com.patels95.sanam.ilovemarshmallow;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,11 +32,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity
+        implements ProductListFragment.OnFragmentInteractionListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -40,7 +47,6 @@ public class MainActivity extends Activity {
     private Product[] mProducts;
 
     @Bind(R.id.progressBar) ProgressBar mProgressBar;
-    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +131,10 @@ public class MainActivity extends Activity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    updateDisplay();
+                                    FragmentManager fragmentManager = getFragmentManager();
+                                    fragmentManager.beginTransaction()
+                                            .replace(R.id.container, ProductListFragment.newInstance(mProducts))
+                                            .commit();
                                 }
                             });
                         }
@@ -141,13 +150,6 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void updateDisplay() {
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
-//        mRecyclerView.setLayoutManager(layoutManager);
-//        ProductAdapter adapter = new ProductAdapter(MainActivity.this, mProducts);
-//        mRecyclerView.setAdapter(adapter);
-    }
-
     private Product[] parseProductInfo(String jsonData) throws JSONException {
         JSONObject result = new JSONObject(jsonData);
         JSONArray data = result.getJSONArray(getString(R.string.results_json_array));
@@ -157,6 +159,14 @@ public class MainActivity extends Activity {
         for(int i = 0; i < data.length(); i++){
             JSONObject currentProduct = data.getJSONObject(i);
             Product product = new Product();
+
+            try {
+                URL imageUrl = new URL(currentProduct.getString(getString(R.string.result_image_url)));
+                Bitmap bm = BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream());
+                product.setBitmap(bm);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             product.setBrandName(currentProduct.getString(getString(R.string.result_brand_name)));
             product.setPrice(currentProduct.getString(getString(R.string.result_price)));
@@ -195,5 +205,10 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

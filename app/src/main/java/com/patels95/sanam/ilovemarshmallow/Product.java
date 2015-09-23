@@ -1,14 +1,34 @@
 package com.patels95.sanam.ilovemarshmallow;
 
-public class Product {
+import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Product implements Parcelable {
 
     private String mBrandName;
     private String mPrice;
     private String mImageUrl;
+    private Bitmap mBitmap;
     private String mAsin;
     private String mProductUrl;
     private int mProductRating;
     private String mProductName;
+
+    public Product(){
+
+    }
+
+    private Product(Parcel in){
+        mBrandName = in.readString();
+        mPrice = in.readString();
+        mImageUrl = in.readString();
+        mBitmap = in.readParcelable(Bitmap.class.getClassLoader());
+        mAsin = in.readString();
+        mProductUrl = in.readString();
+        mProductRating = in.readInt();
+        mProductName = in.readString();
+    }
 
     public String getBrandName() {
         return mBrandName;
@@ -65,4 +85,41 @@ public class Product {
     public void setProductName(String productName) {
         mProductName = productName;
     }
+
+    public Bitmap getBitmap() {
+        return mBitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        mBitmap = bitmap;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mBrandName);
+        dest.writeString(mPrice);
+        dest.writeString(mImageUrl);
+        dest.writeParcelable(mBitmap, flags);
+        dest.writeString(mAsin);
+        dest.writeString(mProductUrl);
+        dest.writeInt(mProductRating);
+        dest.writeString(mProductName);
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel source) {
+            return new Product(source);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
 }
