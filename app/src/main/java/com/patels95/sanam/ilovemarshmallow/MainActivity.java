@@ -5,6 +5,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +40,7 @@ public class MainActivity extends Activity {
     private Product[] mProducts;
 
     @Bind(R.id.progressBar) ProgressBar mProgressBar;
+    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +68,11 @@ public class MainActivity extends Activity {
                 Toast.makeText(MainActivity.this, mUserQuery, Toast.LENGTH_LONG).show();
                 getSearchResults(query);
                 searchItem.collapseActionView();
+//                try {
+//                    Thread.sleep(2000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
                 return true;
             }
 
@@ -111,6 +121,13 @@ public class MainActivity extends Activity {
                         String jsonData = response.body().string();
                         if (response.isSuccessful()) {
                             mProducts = parseProductInfo(jsonData);
+                            Log.v(TAG, "mProducts done");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    updateDisplay();
+                                }
+                            });
                         }
                         else {
                             Log.e(TAG, "search request error");
@@ -122,6 +139,13 @@ public class MainActivity extends Activity {
                 }
             });
         }
+    }
+
+    private void updateDisplay() {
+//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+//        mRecyclerView.setLayoutManager(layoutManager);
+//        ProductAdapter adapter = new ProductAdapter(MainActivity.this, mProducts);
+//        mRecyclerView.setAdapter(adapter);
     }
 
     private Product[] parseProductInfo(String jsonData) throws JSONException {
