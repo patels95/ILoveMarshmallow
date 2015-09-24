@@ -16,6 +16,7 @@
         android:layout_alignParentStart="true"
         android:contentDescription="@string/product_image"
         android:src="@drawable/default_img"
+        android:layout_centerVertical="true"
         />
 
     <TextView
@@ -27,7 +28,7 @@
         android:layout_toEndOf="@+id/productImage"
         android:layout_marginStart="@dimen/list_item_text_horizontal_margin"
         android:layout_marginTop="@dimen/list_item_text_vertical_margin"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textColor="@android:color/black"/>
 
     <TextView
@@ -39,7 +40,7 @@
         android:layout_toEndOf="@+id/productImage"
         android:layout_marginStart="@dimen/list_item_text_horizontal_margin"
         android:layout_marginTop="3dp"
-        android:textSize="16sp"/>
+        android:textSize="12sp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,8 +49,8 @@
         android:id="@+id/price"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="@dimen/list_item_text_horizontal_margin"
-        android:layout_centerVertical="true"
-        android:textSize="20sp"
-        android:textColor="@color/primary"/>
+        android:textSize="14sp"
+        android:textColor="@color/primary"
+        android:layout_alignTop="@+id/brandName"/>
 
 </RelativeLayout>

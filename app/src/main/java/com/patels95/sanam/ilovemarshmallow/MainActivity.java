@@ -71,7 +71,6 @@ public class MainActivity extends Activity
                 searchView.setIconified(true);
                 searchView.clearFocus();
                 mUserQuery = query;
-                Toast.makeText(MainActivity.this, mUserQuery, Toast.LENGTH_LONG).show();
                 getSearchResults(query);
                 searchItem.collapseActionView();
 //                try {
