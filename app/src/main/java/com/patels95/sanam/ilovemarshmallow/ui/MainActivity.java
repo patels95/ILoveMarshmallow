@@ -1,4 +1,4 @@
-package com.patels95.sanam.ilovemarshmallow;
+package com.patels95.sanam.ilovemarshmallow.ui;
 
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -9,18 +9,15 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
-import android.widget.Toast;
 
+import com.patels95.sanam.ilovemarshmallow.model.Product;
+import com.patels95.sanam.ilovemarshmallow.R;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
@@ -32,7 +29,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import butterknife.Bind;

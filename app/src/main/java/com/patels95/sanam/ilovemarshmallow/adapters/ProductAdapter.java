@@ -1,10 +1,10 @@
-package com.patels95.sanam.ilovemarshmallow;
+package com.patels95.sanam.ilovemarshmallow.adapters;
 
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import com.patels95.sanam.ilovemarshmallow.model.Product;
+import com.patels95.sanam.ilovemarshmallow.R;
+import com.patels95.sanam.ilovemarshmallow.ui.ProductInfoActivity;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
@@ -76,7 +74,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         @Override
         public void onClick(View v) {
             TextView viewProductName = (TextView) v.findViewById(R.id.productName);
-            Toast.makeText(mContext, viewProductName.getText(), Toast.LENGTH_SHORT).show();
+            String asin = "";
+            for (int i = 0; i < mProducts.length; i++){
+                if (mProducts[i].getProductName() == viewProductName.getText()){
+                    asin = mProducts[i].getAsin();
+                }
+            }
+            Intent intent = new Intent(mContext, ProductInfoActivity.class);
+            intent.putExtra(ProductInfoActivity.PRODUCT_ASIN, asin);
+            mContext.startActivity(intent);
         }
     }
 }

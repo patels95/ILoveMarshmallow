@@ -1,4 +1,4 @@
-package com.patels95.sanam.ilovemarshmallow;
+package com.patels95.sanam.ilovemarshmallow.model;
 
 import android.graphics.Bitmap;
 import android.os.Parcel;

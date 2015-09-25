@@ -1,4 +1,4 @@
-package com.patels95.sanam.ilovemarshmallow;
+package com.patels95.sanam.ilovemarshmallow.ui;
 
 import android.app.Activity;
 import android.net.Uri;
@@ -8,10 +8,14 @@ import android.os.Parcelable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.patels95.sanam.ilovemarshmallow.DividerItemDecoration;
+import com.patels95.sanam.ilovemarshmallow.model.Product;
+import com.patels95.sanam.ilovemarshmallow.R;
+import com.patels95.sanam.ilovemarshmallow.adapters.ProductAdapter;
 
 import java.util.Arrays;
 
