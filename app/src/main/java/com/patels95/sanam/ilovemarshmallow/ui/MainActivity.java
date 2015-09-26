@@ -39,7 +39,6 @@ public class MainActivity extends Activity
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    private String mUserQuery;
     private Product[] mProducts;
 
     @Bind(R.id.progressBar) ProgressBar mProgressBar;
@@ -66,7 +65,6 @@ public class MainActivity extends Activity
             public boolean onQueryTextSubmit(String query) {
                 searchView.setIconified(true);
                 searchView.clearFocus();
-                mUserQuery = query;
                 getSearchResults(query);
                 searchItem.collapseActionView();
 //                try {
@@ -122,7 +120,6 @@ public class MainActivity extends Activity
                         String jsonData = response.body().string();
                         if (response.isSuccessful()) {
                             mProducts = parseProductInfo(jsonData);
-                            Log.v(TAG, "mProducts done");
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {

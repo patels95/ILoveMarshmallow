@@ -20,5 +20,9 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_product_info">ProductInfoActivity</string>
+    <string name="result_description">description</string>
+    <string name="result_genders">genders</string>
+    <string name="result_product_type">defaultProductType</string>
+    <string name="result_default_image_url">defaultImageUrl</string>
 
 </resources>
