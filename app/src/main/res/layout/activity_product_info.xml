@@ -1,60 +1,81 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context="com.patels95.sanam.ilovemarshmallow.ui.ProductInfoActivity"
-                android:background="@android:color/white">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@android:color/white">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/infoImage"
-        android:src="@drawable/default_img_lg"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"/>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    tools:context="com.patels95.sanam.ilovemarshmallow.ui.ProductInfoActivity"
+                    >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/brand_name"
-        android:id="@+id/infoBrandName"
-        android:textSize="24sp"
-        android:textColor="@color/text"
-        android:layout_below="@+id/infoImage"
-        android:layout_alignParentStart="true"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/infoImage"
+            android:src="@drawable/default_img_lg"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/product_name"
-        android:id="@+id/infoProductName"
-        android:textSize="18sp"
-        android:textColor="@color/text"
-        android:layout_marginTop="@dimen/info_text_vertical_margin"
-        android:layout_marginBottom="@dimen/info_text_vertical_margin"
-        android:layout_below="@+id/infoBrandName"
-        android:layout_alignParentStart="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/brand_name"
+            android:id="@+id/infoBrandName"
+            android:textSize="24sp"
+            android:textColor="@color/text"
+            android:layout_below="@+id/infoImage"
+            android:layout_alignParentStart="true"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/info_description"
-        android:id="@+id/infoDescription"
-        android:textSize="14sp"
-        android:textColor="@color/text"
-        android:layout_marginTop="@dimen/info_text_vertical_margin"
-        android:layout_below="@+id/infoProductName"
-        android:layout_alignParentStart="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/product_name"
+            android:id="@+id/infoProductName"
+            android:textSize="18sp"
+            android:textColor="@color/text"
+            android:layout_marginTop="@dimen/info_text_vertical_margin"
+            android:layout_below="@+id/infoBrandName"
+            android:layout_alignParentStart="true"/>
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/info_genders"
+            android:id="@+id/infoGenders"
+            android:textSize="14sp"
+            android:textColor="@color/text"
+            android:layout_below="@+id/infoProductName"
+            android:layout_marginTop="@dimen/info_text_vertical_margin"
+            android:layout_marginBottom="@dimen/info_text_vertical_margin"
+            android:layout_alignParentStart="true"/>
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/info_description"
+            android:id="@+id/infoDescription"
+            android:textSize="14sp"
+            android:textColor="@color/text"
+            android:layout_marginTop="@dimen/info_text_vertical_margin"
+            android:layout_below="@+id/infoGenders"
+            android:layout_alignParentStart="true"/>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+</ScrollView>
+
+

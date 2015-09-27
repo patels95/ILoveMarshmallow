@@ -9,18 +9,19 @@
                 tools:context=".MainActivity"
                 android:background="@android:color/white">
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
 
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </FrameLayout>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
 
 
 </RelativeLayout>

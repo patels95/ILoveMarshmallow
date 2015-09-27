@@ -49,6 +49,7 @@ public class ProductInfoActivity extends Activity {
     @Bind(R.id.infoBrandName) TextView mInfoBrandName;
     @Bind(R.id.infoProductName) TextView mInfoProductName;
     @Bind(R.id.infoDescription) TextView mInfoDescription;
+    @Bind(R.id.infoGenders) TextView mInfoGenders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +149,12 @@ public class ProductInfoActivity extends Activity {
         mInfoBrandName.setText(productInfo.getBrandName());
         mInfoProductName.setText(productInfo.getProductName());
         mInfoDescription.setText(productInfo.getDescription());
+        String[] genders = productInfo.getGenders();
+        String allGenders = "";
+        for(int i = 0;i < genders.length; i++){
+            allGenders += genders[i] + " ";
+        }
+        mInfoGenders.setText(allGenders);
     }
 
     private void setLayoutInvisible() {
@@ -156,6 +163,7 @@ public class ProductInfoActivity extends Activity {
         mInfoBrandName.setVisibility(View.INVISIBLE);
         mInfoProductName.setVisibility(View.INVISIBLE);
         mInfoDescription.setVisibility(View.INVISIBLE);
+        mInfoGenders.setVisibility(View.INVISIBLE);
     }
 
     private void setLayoutVisible() {
@@ -164,6 +172,7 @@ public class ProductInfoActivity extends Activity {
         mInfoBrandName.setVisibility(View.VISIBLE);
         mInfoProductName.setVisibility(View.VISIBLE);
         mInfoDescription.setVisibility(View.VISIBLE);
+        mInfoGenders.setVisibility(View.VISIBLE);
     }
 
     private boolean isNetworkAvailable() {
