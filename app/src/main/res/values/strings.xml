@@ -24,5 +24,6 @@
     <string name="result_genders">genders</string>
     <string name="result_product_type">defaultProductType</string>
     <string name="result_default_image_url">defaultImageUrl</string>
+    <string name="info_description">Description</string>
 
 </resources>

@@ -9,11 +9,14 @@ import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.patels95.sanam.ilovemarshmallow.R;
 import com.patels95.sanam.ilovemarshmallow.model.ProductInfo;
@@ -37,10 +40,15 @@ public class ProductInfoActivity extends Activity {
 
     public static final String TAG = ProductInfoActivity.class.getSimpleName();
     public static final String PRODUCT_ASIN = "asin";
+    public static final String PRODUCT_NAME = "name";
 
     private ProductInfo mProductInfo;
 
     @Bind(R.id.progressBar) ProgressBar mProgressBar;
+    @Bind(R.id.infoImage) ImageView mInfoImage;
+    @Bind(R.id.infoBrandName) TextView mInfoBrandName;
+    @Bind(R.id.infoProductName) TextView mInfoProductName;
+    @Bind(R.id.infoDescription) TextView mInfoDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +58,10 @@ public class ProductInfoActivity extends Activity {
 
         Intent intent = getIntent();
         String asin = intent.getStringExtra(PRODUCT_ASIN);
-        mProgressBar.setVisibility(View.VISIBLE);
+        String productName = intent.getStringExtra(PRODUCT_NAME);
+        getActionBar().setTitle(productName);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        setLayoutInvisible();
         getProductInfo(asin);
     }
 
@@ -84,10 +95,10 @@ public class ProductInfoActivity extends Activity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    mProgressBar.setVisibility(View.INVISIBLE);
+                                    setLayoutVisible();
+                                    updateDisplay(mProductInfo);
                                 }
                             });
-                            updateDisplay();
                         }
                         else {
                             Log.e(TAG, "search request error");
@@ -111,10 +122,11 @@ public class ProductInfoActivity extends Activity {
             genders[i] = gendersJson.getString(i);
         }
 
+        String description = Html.fromHtml(result.getString(getString(R.string.result_description))).toString();
         ProductInfo productInfo = new ProductInfo();
 
         productInfo.setBrandName(result.getString(getString(R.string.result_brand_name)));
-        productInfo.setDescription(result.getString(getString(R.string.result_description)));
+        productInfo.setDescription(description);
         productInfo.setAsin(result.getString(getString(R.string.result_asin)));
         productInfo.setGenders(genders);
         productInfo.setType(result.getString(getString(R.string.result_product_type)));
@@ -131,8 +143,27 @@ public class ProductInfoActivity extends Activity {
         return productInfo;
     }
 
-    private void updateDisplay() {
+    private void updateDisplay(ProductInfo productInfo) {
+        mInfoImage.setImageBitmap(productInfo.getBitmap());
+        mInfoBrandName.setText(productInfo.getBrandName());
+        mInfoProductName.setText(productInfo.getProductName());
+        mInfoDescription.setText(productInfo.getDescription());
+    }
 
+    private void setLayoutInvisible() {
+        mProgressBar.setVisibility(View.VISIBLE);
+        mInfoImage.setVisibility(View.INVISIBLE);
+        mInfoBrandName.setVisibility(View.INVISIBLE);
+        mInfoProductName.setVisibility(View.INVISIBLE);
+        mInfoDescription.setVisibility(View.INVISIBLE);
+    }
+
+    private void setLayoutVisible() {
+        mProgressBar.setVisibility(View.INVISIBLE);
+        mInfoImage.setVisibility(View.VISIBLE);
+        mInfoBrandName.setVisibility(View.VISIBLE);
+        mInfoProductName.setVisibility(View.VISIBLE);
+        mInfoDescription.setVisibility(View.VISIBLE);
     }
 
     private boolean isNetworkAvailable() {
@@ -159,8 +190,8 @@ public class ProductInfoActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if(id == android.R.id.home){
+            onBackPressed();
             return true;
         }
 

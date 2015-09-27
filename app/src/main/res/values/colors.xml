@@ -2,5 +2,5 @@
     <color name="primary">#167F39</color>
     <color name="primary_dark">#044C29</color>
     <color name="accent">#1DBA4B</color>
-    <color name="test">#1DBA4B</color>
+    <color name="text">#575757</color>
 </resources>

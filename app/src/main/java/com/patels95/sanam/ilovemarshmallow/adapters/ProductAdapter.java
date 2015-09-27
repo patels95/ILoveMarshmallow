@@ -82,6 +82,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             }
             Intent intent = new Intent(mContext, ProductInfoActivity.class);
             intent.putExtra(ProductInfoActivity.PRODUCT_ASIN, asin);
+            intent.putExtra(ProductInfoActivity.PRODUCT_NAME, viewProductName.getText());
             mContext.startActivity(intent);
         }
     }
