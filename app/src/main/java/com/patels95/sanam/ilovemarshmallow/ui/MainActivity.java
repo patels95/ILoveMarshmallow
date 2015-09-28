@@ -84,7 +84,7 @@ public class MainActivity extends Activity
     }
 
 
-
+    // get search results from url
     private void getSearchResults(String query) {
         String url = "https://zappos.amazon.com/mobileapi/v1/search?term=" + query;
 
@@ -142,6 +142,7 @@ public class MainActivity extends Activity
         }
     }
 
+    // use search result to create list of Product objects
     private Product[] parseProductInfo(String jsonData) throws JSONException {
         JSONObject result = new JSONObject(jsonData);
         JSONArray data = result.getJSONArray(getString(R.string.results_json_array));
@@ -174,6 +175,7 @@ public class MainActivity extends Activity
         return products;
     }
 
+    // returns true if network is available
     private boolean isNetworkAvailable() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();

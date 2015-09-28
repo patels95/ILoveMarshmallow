@@ -66,6 +66,7 @@ public class ProductInfoActivity extends Activity {
         getProductInfo(asin);
     }
 
+    // get product info for item that was clicked
     private void getProductInfo(String asin) {
         String url = "https://zappos.amazon.com/mobileapi/v1/product/asin/" + asin;
 
@@ -84,7 +85,7 @@ public class ProductInfoActivity extends Activity {
                             mProgressBar.setVisibility(View.INVISIBLE);
                         }
                     });
-                    Log.e(TAG, "search request error");
+                    Log.e(TAG, "product info request error");
                 }
 
                 @Override
@@ -102,7 +103,7 @@ public class ProductInfoActivity extends Activity {
                             });
                         }
                         else {
-                            Log.e(TAG, "search request error");
+                            Log.e(TAG, "product info request error");
                         }
                     }
                     catch (IOException | JSONException e) {
@@ -114,6 +115,7 @@ public class ProductInfoActivity extends Activity {
         }
     }
 
+    // create ProductInfo object
     private ProductInfo parseProductInfo(String jsonData) throws JSONException {
         JSONObject result = new JSONObject(jsonData);
 
@@ -144,6 +146,7 @@ public class ProductInfoActivity extends Activity {
         return productInfo;
     }
 
+    // update UI after retrieving product info
     private void updateDisplay(ProductInfo productInfo) {
         mInfoImage.setImageBitmap(productInfo.getBitmap());
         mInfoBrandName.setText(productInfo.getBrandName());
@@ -157,6 +160,7 @@ public class ProductInfoActivity extends Activity {
         mInfoGenders.setText(allGenders);
     }
 
+    // hide view elements
     private void setLayoutInvisible() {
         mProgressBar.setVisibility(View.VISIBLE);
         mInfoImage.setVisibility(View.INVISIBLE);
@@ -166,6 +170,7 @@ public class ProductInfoActivity extends Activity {
         mInfoGenders.setVisibility(View.INVISIBLE);
     }
 
+    // show view elements
     private void setLayoutVisible() {
         mProgressBar.setVisibility(View.INVISIBLE);
         mInfoImage.setVisibility(View.VISIBLE);
@@ -175,6 +180,7 @@ public class ProductInfoActivity extends Activity {
         mInfoGenders.setVisibility(View.VISIBLE);
     }
 
+    // returns true if network is available
     private boolean isNetworkAvailable() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
@@ -199,6 +205,7 @@ public class ProductInfoActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        // change action bar up button functionality to replicate android back button
         if(id == android.R.id.home){
             onBackPressed();
             return true;
